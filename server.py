@@ -1,0 +1,21 @@
+import socket
+s = socket.socket()
+host = socket.gethostname()
+port = 8080
+s.bind((host,port))
+s.listen(1)
+print("Starting up CPSC 452 Chat Server...")
+print("Waiting for 2 connections...")
+client_one, client_one_addr = s.accept()
+print("Client one has been connected...")
+client_one.send("Welcome to CPSC 452 Chat Server".encode())
+print("Waiting for 1 connection...")
+client_two, client_two_addr = s.accept()
+print("Client two has been connected...")
+client_two.send("Welcome to CPSC 452 Chat Server".encode())
+while 1:
+    message = input(str(">>"))
+    message = message.encode()
+    client_one.send(message)
+    client_two.send(message)
+    print("Message send...")
