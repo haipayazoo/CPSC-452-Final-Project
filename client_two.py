@@ -7,7 +7,16 @@ print("Connected to the server")
 message = s.recv(1024)
 message = message.decode()
 print(message)
-while 1:
+
+message = s.recv(1024)
+message = message.decode()
+print(message)
+            
+while True:
     message = s.recv(1024)
     message = message.decode()
-    print("Server message: ", message)
+    print(message)
+    
+    new_message = input(str("Client_Two>> "))
+    new_message = new_message.encode()
+    s.send(new_message)
