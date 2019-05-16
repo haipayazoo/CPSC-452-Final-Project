@@ -17,7 +17,6 @@ client_two.send("Welcome to CPSC 452 Chat Server (Client 2)".encode())
 
 message = "process...".encode()
 client_one.send(message)
-client_two.send(message)
 
 while True:
         recv_message = client_one.recv(1024)
@@ -27,7 +26,3 @@ while True:
         recv_message = client_two.recv(1024)
         print("Client Two message: ", recv_message.decode())
         client_one.send(recv_message)
-        
- 
-
-        
