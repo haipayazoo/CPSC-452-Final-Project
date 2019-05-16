@@ -20,9 +20,11 @@ client_one.send(message)
 
 while True:
         recv_message = client_one.recv(1024)
+        message = "Client One: " + recv_message.decode()
         print("Client One message: ", recv_message.decode())
-        client_two.send(recv_message)
+        client_two.send(message.encode())
         
         recv_message = client_two.recv(1024)
+        message = "Client Two: " + recv_message.decode()
         print("Client Two message: ", recv_message.decode())
-        client_one.send(recv_message)
+        client_one.send(message.encode())
