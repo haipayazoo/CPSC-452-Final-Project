@@ -144,7 +144,7 @@ def test(pubKeyPath, privKeyPath):
     else:
         print("you screwed up")
 
-if len(sys.argv)>2:
-	test(sys.argv[1], sys.argv[2])
-else:
-	print("missing arguments")
+# if len(sys.argv)>2:
+# 	test(sys.argv[1], sys.argv[2])
+# else:
+# 	print("missing arguments")
