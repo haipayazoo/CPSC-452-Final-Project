@@ -15,10 +15,8 @@ def sign(message, key):
 
 
 # Verify the authenticity of the message
-def verify(signature, key, hash):
-    print(signature[1])
-    print(signature[0])
-    print hash
+def verify(signature, key, message):
+    hash = SHA512.new(message).hexdigest()
     if key.verify(hash, signature):
         print "Authentic"
     else:
@@ -32,4 +30,3 @@ message = sign(message, key)
 contents = message.rsplit(',', 2)
 verifying = verify((long(contents[1]), long(contents[2])), publickey, contents[0])
 
-print(message)
