@@ -3,7 +3,7 @@ from Crypto.Cipher import AES
 from Crypto import Random
 
 #takes an algorithm, mode, message, and key
-def encrypt(alg, mode, msg, key):
+def encrypt(alg, msg, key):
 	if alg == "AES":
 		return aes_enc(msg, key)
 	else if alg == "RSA":
