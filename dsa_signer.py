@@ -25,6 +25,6 @@ message = "Baboons rule! xDDDD"
 key = DSA.generate(1024)
 message = sign(message, key)
 contents = message.rsplit(',', 1)
-verifying = verify((long(contents[1])), key, contents[0])
+verifying = verify((long(contents[1]), ), key, contents[0])
 
 print(message)
