@@ -15,6 +15,8 @@ def sign(message, key):
 
 # Verify the authenticity of the message
 def verify(signature, key, hash):
+    print signature[0]
+    print hash
     if key.verify(hash, signature):
         print "Authentic"
     else:
