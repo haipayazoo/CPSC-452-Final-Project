@@ -2,22 +2,32 @@ import base64
 from Crypto.Cipher import AES
 from Crypto import Random
 
+A_RSA, A_DSA, A_AES = range(3)
+
 #takes an algorithm, mode, message, and key
 def encrypt(alg, msg, key):
-	if alg == "AES":
+	if alg == A_AES:
 		return aes_enc(msg, key)
-	else if alg == "RSA":
-		return b"TODO: implement rsa enc"
-	else if alg == "DSA":
-		return b"TODO: implement dsa enc"
+
+	elif alg == A_RSA:
+		# TODO
+		return False
+
+	elif alg == A_DSA:
+		# TODO
+		return False
 
 def decrypt(alg, msg, key):
-	if alg == "AES":
+	if alg == A_AES:
 		return aes_dec(msg, key)
-	else if alg == "RSA":
-		return b"TODO: implement rsa dec"
-	else if alg == "DSA":
-		return b"TODO: implement dsa dec"
+
+	elif alg == A_RSA:
+		# TODO
+		return False
+
+	elif alg == A_DSA:
+		# TODO
+		return False
 
 def aes_enc(msg, key):
 
