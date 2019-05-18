@@ -23,6 +23,10 @@ class Connection():
 			#if this connection is a client we need to connect to the server
 			self.sock.connect((self.addr, self.port))
 
+	def __init__(self, sock):
+		self.isServer = False
+		self.sock = sock;
+
 	def sendUnencrypted(self, message):
 		self.sock.send(message)
 
