@@ -3,9 +3,10 @@ from _thread import *
 
 
 class Client():
-	def __init__(self, conn, addr):
+	def __init__(self, conn, addr, server):
 		self.conn = conn
 		self.addr = addr
+		self.server = server
 		self.online = True
 		self.username = None
 		self.hash = None
@@ -54,6 +55,37 @@ class Client():
 			except:
 				continue
 
+	# TODO: convert this to use the client class
+	#thread_client will be a thread that is running for each client to handled messages
+	def loop(self):
+
+		#user_auth(conn, addr)
+
+		#welcome the client
+		self.send("Welcome to Secure Chat!")
+
+		#client main loop
+		while self.online:
+			try:
+				#try to recieve a message from the client
+				msg = self.conn.recv(1024)
+
+				#if a message has been recieved
+				if msg:
+					#print the message for debugging
+					#TODO: remove this print to because eventually all the traffic will be encrypted
+					print(addr[0] + ": " + msg.decode())
+
+					#send the message to all the connected users except this client
+					self.server.broadcast(msg, self)
+				else:
+					#this will handled when the server recieves a weird message. either a disconnect or error
+					#regardless we want to disconnect the client
+					self.close()
+
+			except:
+				continue
+
 class ClientGroup():
 
 	def __init__(self, members):
@@ -84,37 +116,6 @@ class Server():
 		self.groups = []
 
 
-	# TODO: convert to use the class
-	#thread_client will be a thread that is running for each client to handled messages
-	def thread_client(self, conn, addr):
-
-		#user_auth(conn, addr)
-
-		#welcome the client
-		welcomeMsg = "Welcome to Secure Chat!"
-		conn.send(welcomeMsg.encode())
-
-		#client main loop
-		while self.online:
-			try:
-				#try to recieve a message from the client
-				msg = conn.recv(1024)
-
-				#if a message has been recieved
-				if msg:
-					#print the message for debugging
-					#TODO: remove this print to because eventually all the traffic will be encrypted
-					print(addr[0] + ": " + msg.decode())
-
-					#send the message to all the connected users
-					broadcast(msg, conn)
-				else:
-					#this will handled when the server recieves a weird message. either a disconnect or error
-					#regardless we want to disconnect the client
-					remove(conn)
-
-			except:
-				continue
 
 	# TODO: do what main() used to do
 	def loop(self):
@@ -126,13 +127,13 @@ class Server():
 			conn, addr = self.serverSocket.accept()
 
 			#add the connection onto the client list in order to make sure the list is always accurate
-			# TODO: make a new client object and append it to our list of clients
-			self.clients.append(conn)
+			newClient = Client(conn, addr, self)
+			self.clients.append(newClient)
 
 			print(addr[0] + ": connected!", addr)
 
-			#create a new thread for the newly connected client to handled all things related to that clientList
-			start_new_thread(self.thread_client, (conn, addr))
+			# Start the clint loop in a new thread
+			start_new_thread(newClient.loop, ())
 
 
 	# Send a message to all clients except for 'sender'
