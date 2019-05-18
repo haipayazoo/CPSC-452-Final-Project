@@ -14,8 +14,45 @@ server.listen(100)
 #this list will contain all active clients
 clientList = []
 
+'''
+TODO: Fix this authentication function
+def user_auth(conn, addr):
+		
+	user_info = ""
+	status = ""
+
+	while status != "success":
+
+		try:
+			msg = conn.recv(1024)
+			msg = msg.decode()
+
+			credentials = msg.split()		
+
+			file = open("user-pass.txt", "r")
+
+			for info in file:
+				user_info = info.split()
+
+				if user_info[0] == credentials[0] and user_info[1] == credentials[1]:
+					status = "s"
+					print("Credentials confirmed.")
+					conn.send(status.encode())
+					file.close()
+					break
+
+			if(status != "success"):
+				print("Did you just print here?")
+				conn.send("f".encode())
+		
+		except:
+			continue
+'''
+
 #thread_client will be a thread that is running for each client to handled messages
 def thread_client(conn, addr):
+
+	#user_auth(conn, addr)
 
 	#welcome the client
 	welcomeMsg = "Welcome to Secure Chat!"
