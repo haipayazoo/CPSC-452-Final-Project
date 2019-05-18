@@ -25,12 +25,6 @@ def verify(signature, key, message):
 
 message = "Baboons rule! xDDDD"
 key = DSA.generate(1024)
-publickey=key.publickey()
-y=publickey.keydata[0]
-g=publickey.keydata[1]
-p=publickey.keydata[2]
-q=publickey.keydata[3]
-publickey= DSA.construct((long(y),long(g),long(p),long(q)))
 message = sign(message, key)
 contents = message.rsplit(',', 2)
 verifying = verify((long(contents[1]), long(contents[2])), publickey, contents[0])
