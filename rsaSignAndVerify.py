@@ -104,9 +104,8 @@ def loadSig(message):
 	# Open the file, read the signature string, convert it
 	# into an integer, and then put the integer into a single
 	# element tuple
-	contents=message.rsplit(' ',1)
-	signature = (contents[1], )
-	print(message)
+	contents=message.rsplit(',',1)
+	signature = (long(contents[1]), )
 	return (contents[0], signature)
 
 #################################################
@@ -118,7 +117,9 @@ def loadSig(message):
 # false otherwise
 #################################################
 def verifySig(theHash, sig, veriKey):
-
+	
+	
+	
 	# Verify the hash against the provided
 	# signature using the verify() function of the
 	# key and return the result
