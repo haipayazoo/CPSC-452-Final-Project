@@ -104,8 +104,9 @@ def loadSig(message):
 	# Open the file, read the signature string, convert it
 	# into an integer, and then put the integer into a single
 	# element tuple
-	contents=message.rsplit(',',1)
+	contents=message.rsplit(' ',1)
 	signature = (contents[1], )
+	print(message)
 	return (contents[0], signature)
 
 #################################################
@@ -132,7 +133,7 @@ def test(pubKeyPath, privKeyPath):
     #get the signature for message
     file_signature=getFileSig(message, privateKey)
     #append the signature to the end of message seperated by a comma
-    message=message +','+str(file_signature)
+    message=message +','+str(file_signature[0])
     #loadsig seperates the message and signature 
     (message, file_signature)=loadSig(message)
 
@@ -142,4 +143,7 @@ def test(pubKeyPath, privKeyPath):
     else:
         print("you screwed up")
 
-test(sys.argv[1], sys.argv[2])
+if len(sys.argv)>2:
+	test(sys.argv[1], sys.argv[2])
+else:
+	print("missing arguments")
